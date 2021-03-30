@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import Todos from "./components/Todos";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import Contact from "./components/Contact";
 import About from "./components/About";
 
@@ -21,21 +21,27 @@ class App extends Component {
             });
     }
 
-    getTodos () {
+    getTodos() {
         return fetch('https://jsonplaceholder.typicode.com/todos');
     }
 
-    render(){
+    render() {
         console.log(this.state.todos);
         return (
             <div className="App">
-                <header className="App-header">
-                    Le routage
-                </header>
                 <Router>
-                    {/*<Todos todos={this.state.todos}/>*/}
-                        <Route path="/about" component={About} />
-                        <Route path="/contact" component={Contact} />
+                    <header className="App-header">
+                        Le routage
+                        <Link to='/todos'>A faire</Link>
+                        <Link to='/about'>A propos</Link>
+                        <Link to='/contact'>Contac</Link>
+                    </header>
+
+                    <Route path="/todos" render={() => (
+                        <Todos todos={this.state.todos}/>
+                    )}/>
+                    <Route path="/about" component={About}/>
+                    <Route path="/contact" component={Contact}/>
                 </Router>
             </div>
         );
